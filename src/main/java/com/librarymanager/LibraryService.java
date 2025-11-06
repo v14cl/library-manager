@@ -13,9 +13,15 @@ import com.librarymanager.model.Checkout;
 import com.librarymanager.model.Language;
 
 public class LibraryService {
-    private final BookDAO bookDAO = new BookDAO();
-    private final ClientDAO clientDAO = new ClientDAO();
-    private final CheckoutDAO checkoutDAO = new CheckoutDAO();
+    private BookDAO bookDAO = new BookDAO();
+    private ClientDAO clientDAO = new ClientDAO();
+    private CheckoutDAO checkoutDAO = new CheckoutDAO();
+
+    public LibraryService(BookDAO bookDAO, ClientDAO clientDAO, CheckoutDAO checkoutDAO) {
+        this.bookDAO = bookDAO;
+        this.clientDAO = clientDAO;
+        this.checkoutDAO = checkoutDAO;
+    }
 
     public List<Book> listAllBooks() throws SQLException {
         return bookDAO.findAll();

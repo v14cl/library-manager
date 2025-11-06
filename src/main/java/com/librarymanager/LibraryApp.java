@@ -4,13 +4,20 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.librarymanager.dao.BookDAO;
+import com.librarymanager.dao.CheckoutDAO;
+import com.librarymanager.dao.ClientDAO;
 import com.librarymanager.model.Book;
 import com.librarymanager.model.Client;
 import com.librarymanager.model.Checkout;
 
 public class LibraryApp {
-    private static final LibraryService service = new LibraryService();
-    private static final Scanner scanner = new Scanner(System.in);
+    static BookDAO bookDAO = new BookDAO();
+    static ClientDAO clientDAO = new ClientDAO();
+    static CheckoutDAO checkoutDAO = new CheckoutDAO();
+
+    static LibraryService service = new LibraryService(bookDAO, clientDAO, checkoutDAO);
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws SQLException {
         boolean run = true;
