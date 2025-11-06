@@ -4,12 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.librarymanager.DatabaseConnection;
-import com.librarymanager.Validator;
-import com.librarymanager.model.GenreBook;
-import com.librarymanager.model.Genre;
-import com.librarymanager.model.Book;
-import com.librarymanager.model.Language;
+import com.librarymanager.*;
+import com.librarymanager.model.*;
 
 public class GenreBookDAO {
 

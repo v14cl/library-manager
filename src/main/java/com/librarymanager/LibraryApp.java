@@ -28,7 +28,6 @@ public class LibraryApp {
                 default -> System.out.println("Unknown command");
             }
         }
-        System.out.println("Bye!");
     }
 
     private static void printMenu() {
