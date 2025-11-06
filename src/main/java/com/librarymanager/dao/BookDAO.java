@@ -4,12 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.librarymanager.DatabaseConnection;
-import com.librarymanager.Validator;
-import com.librarymanager.model.Book;
-import com.librarymanager.model.Language;
+import com.librarymanager.*;
+import com.librarymanager.model.*;
 
-public class BookDAO {
+public class BookDAO implements CrudDAO<Book> {
     
     public Book insert(Book book) throws SQLException {
         Validator.validateNotEmpty(book.getTitle(), "Book title");

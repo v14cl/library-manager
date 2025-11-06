@@ -8,7 +8,7 @@ import com.librarymanager.DatabaseConnection;
 import com.librarymanager.Validator;
 import com.librarymanager.model.Client;
 
-public class ClientDAO {
+public class ClientDAO implements CrudDAO<Client> {
 
     public Client insert(Client client) throws SQLException {
         Validator.validateNotEmpty(client.getFullName(), "Client name");

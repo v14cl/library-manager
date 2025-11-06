@@ -8,7 +8,7 @@ import com.librarymanager.DatabaseConnection;
 import com.librarymanager.Validator;
 import com.librarymanager.model.Genre;
 
-public class GenreDAO {
+public class GenreDAO implements CrudDAO<Genre> {
 
     public Genre insert(Genre genre) throws SQLException {
         Validator.validateNotEmpty(genre.getName(), "Genre name");
