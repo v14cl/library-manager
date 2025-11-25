@@ -1,65 +1,43 @@
 package com.librarymanager.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "book")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
-    private int bookId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bookId;
+
+    @Column(nullable = false)
     private String title;
-    private Language language;
-    private String publisher;
 
-    public Book() {}
+    @Column(nullable = false)
+    private String language;
 
-    public Book(int bookId, String title, Language language, String publisher) {
-        this.bookId = bookId;
-        this.title = title;
-        this.language = language;
-        this.publisher = publisher;
-    }
+    @ManyToOne
+    @JoinColumn(name = "publisher_id", nullable = false)
+    private Publisher publisher;
 
-    public Book(String title, Language language, String publisher) {
-        this.title = title;
-        this.language = language;
-        this.publisher = publisher;
-    }
+    @ManyToMany
+    @JoinTable(
+        name = "author_book",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private Set<Author> authors;
 
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", title='" + title + '\'' +
-                ", language=" + language +
-                ", publisher='" + publisher + '\'' +
-                '}';
-    }
+    @ManyToMany
+    @JoinTable(
+        name = "genre_book",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres;
 }

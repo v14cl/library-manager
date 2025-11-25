@@ -2,22 +2,18 @@ package com.librarymanager.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "genre")
+@Table(name = "publisher")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Genre {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long genreId;
+    private Long publisherId;
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "genres")
-    private Set<Book> books;
 }

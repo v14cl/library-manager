@@ -1,38 +1,23 @@
 package com.librarymanager.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "author")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Author {
-    private int authorId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long authorId;
+
+    @Column(nullable = false)
     private String fullName;
 
-    public Author() {}
-
-    public Author(int authorId, String fullName) {
-        this.authorId = authorId;
-        this.fullName = fullName;
-    }
-
-    public Author(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    @Override
-    public String toString() {
-        return "Author{" + "authorId=" + authorId + ", fullName='" + fullName + '\'' + '}';
-    }
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
 }
