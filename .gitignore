@@ -1,5 +1,7 @@
 *.class
 
+src/main/resources/application-local.yml
+
 /bin/
 /build/
 /out/
