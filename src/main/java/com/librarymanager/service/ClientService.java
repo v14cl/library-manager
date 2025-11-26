@@ -28,15 +28,15 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-    public List<Client> findByFullNameContaining(String name) {
-        return clientRepository.findByFullNameContainingIgnoreCase(name);
-    }
-
     public List<Client> findByPhoneNumber(String phone) {
         return clientRepository.findByPhoneNumber(phone);
     }
 
-    public List<Client> findByFullNameStartingWith(String prefix) {
-        return clientRepository.findByFullNameStartingWith(prefix);
+    public List<Client> findByFirstName(String firstName) {
+        return clientRepository.findByFirstName(firstName);
+    }
+
+    public List<Client> findByLastName(String lastName) {
+        return clientRepository.findByLastName(lastName);
     }
 }

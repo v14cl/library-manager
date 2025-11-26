@@ -7,10 +7,10 @@ import java.util.List;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    
-    List<Client> findByFullNameContainingIgnoreCase(String fullName);
-    
+
     List<Client> findByPhoneNumber(String phoneNumber);
-    
-    List<Client> findByFullNameStartingWith(String prefix);
+
+    List<Client> findByFirstName(String firstName);
+
+    List<Client> findByLastName(String lastName);
 }

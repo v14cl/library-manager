@@ -2,7 +2,6 @@ package com.librarymanager.service;
 
 import com.librarymanager.model.Author;
 import com.librarymanager.repository.AuthorRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -28,15 +27,15 @@ public class AuthorService {
         authorRepository.deleteById(id);
     }
 
-    public List<Author> findByFullNameContaining(String fullName) {
-        return authorRepository.findByFullNameContainingIgnoreCase(fullName);
+    public List<Author> findByFirstName(String firstName) {
+        return authorRepository.findByFirstName(firstName);
     }
 
-    public List<Author> findByFullNameStartingWith(String start) {
-        return authorRepository.findByFullNameStartingWith(start);
+    public List<Author> findByLastName(String lastName) {
+        return authorRepository.findByLastName(lastName);
     }
 
-    public List<Author> findByFullNameEndingWith(String end) {
-        return authorRepository.findByFullNameEndingWith(end);
+    public List<Author> findByFirstAndLastName(String firstName, String lastName) {
+        return authorRepository.findByFirstNameAndLastName(firstName, lastName);
     }
 }

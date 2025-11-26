@@ -8,9 +8,9 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    List<Author> findByFullNameContainingIgnoreCase(String fullName);
+    List<Author> findByFirstName(String firstName);
 
-    List<Author> findByFullNameStartingWith(String start);
+    List<Author> findByLastName(String lastName);
 
-    List<Author> findByFullNameEndingWith(String end);
+    List<Author> findByFirstNameAndLastName(String firstName, String lastName);
 }
