@@ -40,8 +40,8 @@ public class BookService {
         return bookRepository.findByTitleContainingIgnoreCase(title);
     }
 
-    public List<Book> findByPublisher(String publisherName) {
-        return bookRepository.findByPublisher(publisherName);
+    public List<Book> findByPublisher(Publisher publisher) {
+        return bookRepository.findByPublisher(publisher);
     }
 
     public List<Book> findByLanguage(Language language) {
