@@ -14,7 +14,8 @@ import lombok.*;
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long publisherId;
+    @Column(name = "publisher_id")
+    private Long id;
 
     @Column(nullable = false, unique = true)
     @NotBlank

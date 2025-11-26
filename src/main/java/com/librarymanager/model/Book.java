@@ -15,7 +15,8 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookId;
+    @Column(name = "book_id")
+    private Long id;
 
     @Column(nullable = false)
     @NotBlank
@@ -39,7 +40,7 @@ public class Book {
 
     @ManyToMany
     @JoinTable(name = "genre_book",
-    joinColumns = @JoinColumn(name = "book_id"),
-    inverseJoinColumns = @JoinColumn(name = "genre_id"))
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<Genre> genres;
 }

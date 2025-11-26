@@ -15,7 +15,8 @@ import java.time.LocalDate;
 public class Checkout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long checkoutId;
+    @Column(name = "checkout_id")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)

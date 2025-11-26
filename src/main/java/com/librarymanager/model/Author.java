@@ -16,7 +16,8 @@ import java.util.Set;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long authorId;
+    @Column(name = "author_id")
+    private Long id;
 
     @Column(nullable = false)
     @NotBlank
