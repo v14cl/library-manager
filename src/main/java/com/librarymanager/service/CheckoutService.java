@@ -34,10 +34,10 @@ public class CheckoutService {
     }
 
     public List<Checkout> findActiveByBookId(Long bookId) {
-        return checkoutRepository.findByBookIdAndDateReturnedIsNull(bookId.intValue());
+        return checkoutRepository.findActiveByBookId(bookId.longValue());
     }
 
     public List<Checkout> findOverdue(LocalDate date) {
-        return checkoutRepository.findByDeadlineBeforeAndDateReturnedIsNull(date);
+        return checkoutRepository.findOverdue(date);
     }
 }
