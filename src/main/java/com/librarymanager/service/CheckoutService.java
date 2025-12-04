@@ -30,7 +30,7 @@ public class CheckoutService {
     }
 
     public List<Checkout> findByClientId(Long clientId) {
-        return checkoutRepository.findByClientId(clientId.intValue());
+        return checkoutRepository.findByClientId(clientId.longValue());
     }
 
     public List<Checkout> findActiveByBookId(Long bookId) {
