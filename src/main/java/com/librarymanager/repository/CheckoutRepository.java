@@ -10,12 +10,11 @@ import java.util.List;
 @Repository
 public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
 
-    List<Checkout> findByClientId(long clientId);
+    List<Checkout> findByClientId(Long clientId);
 
     @Query("SELECT c FROM Checkout c WHERE c.book.id = :bookId AND c.dateReturned IS NULL")
-    List<Checkout> findActiveByBookId(long bookId);
+    List<Checkout> findActiveByBookId(Long bookId);
 
     @Query("SELECT c FROM Checkout c WHERE c.deadline < :date AND c.dateReturned IS NULL")
     List<Checkout> findOverdue(LocalDate date);
-
 }
