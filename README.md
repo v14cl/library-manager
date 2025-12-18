@@ -36,4 +36,6 @@ src/
     └── build.yml 
 ``` 
 ## Database Structure 
-![alt text](image-1.png)
+
+![alt text](final_schema.png)
+
