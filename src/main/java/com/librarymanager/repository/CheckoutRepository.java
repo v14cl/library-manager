@@ -15,6 +15,9 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
     @Query("SELECT c FROM Checkout c WHERE c.book.id = :bookId AND c.dateReturned IS NULL")
     List<Checkout> findActiveByBookId(Long bookId);
 
+    @Query("SELECT COUNT(c) > 0 FROM Checkout c WHERE c.book.id = :bookId AND c.dateReturned IS NULL")
+    boolean existsActiveByBookId(Long bookId);
+
     @Query("SELECT c FROM Checkout c WHERE c.deadline < :date AND c.dateReturned IS NULL")
     List<Checkout> findOverdue(LocalDate date);
 }

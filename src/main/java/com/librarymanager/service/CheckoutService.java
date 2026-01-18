@@ -3,6 +3,8 @@ package com.librarymanager.service;
 import com.librarymanager.model.Checkout;
 import com.librarymanager.repository.CheckoutRepository;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -21,7 +23,16 @@ public class CheckoutService {
         return checkoutRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Checkout saveCheckout(Checkout checkout) {
+        if (checkout.getDeadline().isBefore(checkout.getDateTaken())) {
+            throw new IllegalArgumentException("Deadline must be after dateTaken");
+        }
+
+        if (existsActiveByBookId(checkout.getBook().getId())) {
+            throw new IllegalArgumentException("Book is already taken");
+        }
+
         return checkoutRepository.save(checkout);
     }
 
@@ -35,6 +46,10 @@ public class CheckoutService {
 
     public List<Checkout> findActiveByBookId(Long bookId) {
         return checkoutRepository.findActiveByBookId(bookId.longValue());
+    }
+
+    public boolean existsActiveByBookId(Long bookId) {
+        return checkoutRepository.existsActiveByBookId(bookId.longValue());
     }
 
     public List<Checkout> findOverdue(LocalDate date) {
