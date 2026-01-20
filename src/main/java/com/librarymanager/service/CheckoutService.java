@@ -2,18 +2,22 @@ package com.librarymanager.service;
 
 import com.librarymanager.model.Checkout;
 import com.librarymanager.repository.CheckoutRepository;
+import com.librarymanager.service.validator.CheckoutValidator;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CheckoutService {
-    @Autowired
-    private CheckoutRepository checkoutRepository;
+    
+    private final CheckoutRepository checkoutRepository;
+    private final CheckoutValidator checkoutValidator;
 
     public List<Checkout> getAllCheckouts() {
         return checkoutRepository.findAll();
@@ -25,14 +29,17 @@ public class CheckoutService {
 
     @Transactional
     public Checkout saveCheckout(Checkout checkout) {
-        if (checkout.getDeadline().isBefore(checkout.getDateTaken())) {
-            throw new IllegalArgumentException("Deadline must be after dateTaken");
-        }
+        checkoutValidator.validateForCreate(checkout);
+        return checkoutRepository.save(checkout);
+    }
 
-        if (existsActiveByBookId(checkout.getBook().getId())) {
-            throw new IllegalArgumentException("Book is already taken");
-        }
+    public Checkout returnBook(Long checkoutId) {
+        Checkout checkout = checkoutRepository.findById(checkoutId)
+        .orElseThrow(() -> new EntityNotFoundException("Checkout not found"));
 
+        checkoutValidator.validateForReturn(checkout);
+        
+        checkout.setDateReturned(LocalDate.now());
         return checkoutRepository.save(checkout);
     }
 
