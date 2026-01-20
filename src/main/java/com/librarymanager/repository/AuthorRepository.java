@@ -13,4 +13,7 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     List<Author> findByLastName(String lastName);
 
     List<Author> findByFirstNameAndLastName(String firstName, String lastName);
+
+    boolean existsByFirstNameAndLastName(String firstName, String lastName);
+
 }
