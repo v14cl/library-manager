@@ -2,16 +2,22 @@ package com.librarymanager.service;
 
 import com.librarymanager.model.Checkout;
 import com.librarymanager.repository.CheckoutRepository;
+import com.librarymanager.service.validator.CheckoutValidator;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CheckoutService {
-    @Autowired
-    private CheckoutRepository checkoutRepository;
+    
+    private final CheckoutRepository checkoutRepository;
+    private final CheckoutValidator checkoutValidator;
 
     public List<Checkout> getAllCheckouts() {
         return checkoutRepository.findAll();
@@ -21,7 +27,19 @@ public class CheckoutService {
         return checkoutRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Checkout saveCheckout(Checkout checkout) {
+        checkoutValidator.validateForCreate(checkout);
+        return checkoutRepository.save(checkout);
+    }
+
+    public Checkout returnBook(Long checkoutId) {
+        Checkout checkout = checkoutRepository.findById(checkoutId)
+        .orElseThrow(() -> new EntityNotFoundException("Checkout not found"));
+
+        checkoutValidator.validateForReturn(checkout);
+        
+        checkout.setDateReturned(LocalDate.now());
         return checkoutRepository.save(checkout);
     }
 
@@ -35,6 +53,10 @@ public class CheckoutService {
 
     public List<Checkout> findActiveByBookId(Long bookId) {
         return checkoutRepository.findActiveByBookId(bookId.longValue());
+    }
+
+    public boolean existsActiveByBookId(Long bookId) {
+        return checkoutRepository.existsActiveByBookId(bookId.longValue());
     }
 
     public List<Checkout> findOverdue(LocalDate date) {
