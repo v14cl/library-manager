@@ -24,17 +24,18 @@ It helps you store all necessary data, such as books, authors, genres, publisher
 src/
 ├── main/
 │   ├── java/com/librarymanager/
-│   │   ├── controller/
-│   │   ├── model/
 │   │   ├── repository/
+│   │   ├── model/
 │   │   ├── service/
+│   │   │   └── validator/
+│   │   ├── controller/
 │   │   └── LibraryManagerApplication.java
 │   └── resources/
 │       └── application.yml
 .github/
 └── workflows/
-    └── build.yml 
-``` 
+    └── build.yml
+```
 ## Database Structure 
 
 ![alt text](final_schema.png)
